@@ -1,0 +1,37 @@
+:root { font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; color: #141a1a; background: #eef2ec; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, textarea { font: inherit; }
+.phone-shell { width: min(100%, 390px); min-height: 100dvh; margin: auto; padding: 30px 16px 20px; background: #f7faf5; border-radius: 28px; display: flex; flex-direction: column; gap: 18px; }
+header { display: grid; gap: 4px; }
+.eyebrow, .estimate-title { margin: 0; color: #336b57; font-weight: 650; font-size: 12px; line-height: 17px; }
+h1 { margin: 0; font-size: 28px; line-height: 39px; letter-spacing: -0.6px; }
+.subhead, .hint { margin: 0; color: #63706b; font-size: 14px; line-height: 20px; }
+.panel, .estimate-card { border: 1px solid #dee3de; border-radius: 18px; padding: 16px; }
+.panel { background: #fff; display: grid; gap: 10px; }
+.meal-panel label { font-size: 16px; line-height: 22px; font-weight: 650; }
+textarea { height: 108px; width: 100%; padding: 14px 13px; resize: vertical; border: 1px solid #dee3de; border-radius: 14px; outline: none; color: #141a1a; font-size: 14px; line-height: 20px; }
+textarea:focus { border-color: #336b57; box-shadow: 0 0 0 3px rgba(51, 107, 87, .12); }
+.hint { font-size: 12px; line-height: 17px; }
+.estimate-card { background: #e3f2e5; display: grid; gap: 10px; }
+.estimate-title { font-size: 13px; line-height: 18px; }
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.metric { min-width: 0; background: #fff; padding: 2px 0; display: grid; gap: 2px; }
+.metric strong { padding: 0 1px; font-size: 19px; line-height: 27px; letter-spacing: -0.35px; white-space: nowrap; }
+.metric span { padding: 0 1px; color: #63706b; font-size: 11px; line-height: 15px; }
+.skeletons i { height: 42px; background: linear-gradient(90deg, #fff 25%, #f3f6f2 50%, #fff 75%); background-size: 200% 100%; animation: sweep 1.35s infinite; }
+@keyframes sweep { to { background-position: -200% 0; } }
+.recent-panel h2, .today-food h2 { margin: 0; font-size: 16px; line-height: 22px; }
+.section-title { display: flex; align-items: start; justify-content: space-between; gap: 12px; }.section-title p { margin: 0; color: #63706b; font-size: 12px; line-height: 17px; text-align: right; }
+.training-card { border: 1px solid #dee3de; border-radius: 18px; padding: 16px; background: #f5eddb; display: grid; gap: 10px; }.training-card h2 { margin: 0; font-size: 19px; line-height: 27px; }.training-card > p:not(.training-label) { margin: 0; color: #63706b; font-size: 13px; line-height: 18px; }.training-label { margin: 0; color: #b56121; font-size: 13px; line-height: 18px; font-weight: 650; }.training-card .primary { margin-top: 0; }
+.advice-card { gap: 10px; }.advice { margin: 0; color: #141a1a; font-size: 14px; line-height: 20px; }.why { margin: 0; color: #336b57; font-size: 13px; line-height: 18px; font-weight: 650; }
+.score strong { font-size: 34px; line-height: 48px; }.overview p { margin: 0; display: flex; justify-content: space-between; font-size: 14px; }.overview b { color: #336b57; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { border: 1px solid #dee3de; border-radius: 999px; padding: 7px 12px; color: #63706b; background: #fff; font-size: 12px; line-height: 17px; cursor: pointer; }
+.chips button:hover { border-color: #336b57; color: #336b57; }
+.primary { min-height: 48px; border: 0; border-radius: 14px; background: #336b57; color: #fff; font-size: 15px; font-weight: 650; cursor: pointer; transition: transform .15s ease, background .15s ease; }
+.primary:hover { background: #285846; }.primary:active { transform: translateY(1px) scale(.99); }.primary:disabled { cursor: default; background: #9bb6a7; }
+.message { margin: -8px 0 0; font-size: 12px; line-height: 17px; }.message.error { color: #ad3025; }.message.success { color: #336b57; }
+nav { margin-top: auto; min-height: 54px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; border-radius: 16px; background: #fff; padding: 8px; color: #63706b; }
+nav button { border: 0; background: transparent; color: inherit; display: grid; justify-items: center; gap: 2px; font-size: 13px; line-height: 18px; cursor: pointer; } nav small { font-size: 11px; line-height: 15px; } nav .active { color: #336b57; font-weight: 650; }
+@media (min-width: 600px) { body { padding: 28px; }.phone-shell { min-height: calc(100dvh - 56px); box-shadow: 0 20px 60px rgba(32, 56, 40, .12); } }
