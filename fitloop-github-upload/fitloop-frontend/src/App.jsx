@@ -15,6 +15,39 @@ function Navigation({ page, setPage }) {
   </nav>;
 }
 
+function AgentChat() {
+  const [message, setMessage] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [status, setStatus] = useState("idle");
+
+  async function sendMessage() {
+    if (!PROFILE_ID) { setAnswer("演示用户尚未配置。"); return; }
+    if (!message.trim()) { setAnswer("请输入想让 Agent 处理的内容。"); return; }
+    setStatus("sending"); setAnswer("");
+    try {
+      const response = await fetch(`${API_BASE_URL}/agent/run`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profile_id: PROFILE_ID, message: message.trim() }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || "Agent 请求失败。");
+      setAnswer(data.answer);
+    } catch (error) {
+      setAnswer(error.message || "Agent 请求失败。");
+    } finally {
+      setStatus("idle");
+    }
+  }
+
+  return <section className="panel agent-chat">
+    <p className="estimate-title">记录助手</p>
+    <textarea value={message} onChange={(event) => setMessage(event.target.value)} placeholder="例如：我今天中午吃了 200 克鸡胸肉" />
+    <button className="primary" type="button" disabled={status === "sending"} onClick={sendMessage}>{status === "sending" ? "正在处理…" : "发送给 Agent"}</button>
+    {answer && <p className="agent-answer" aria-live="polite">{answer}</p>}
+  </section>;
+}
+
 function Today({ setPage }) {
   const [daily, setDaily] = useState(null);
   const [error, setError] = useState("");
@@ -35,6 +68,7 @@ function Today({ setPage }) {
     </section>
     <section className="training-card"><p className="training-label">今天的训练</p><h2>{workout ? `${workout.workout_name} · ${workout.duration_min || 0} 分钟` : "今天还没有训练记录"}</h2><p>{workout?.notes || "完成饮食记录后，也别忘记安排一次活动。"}</p><button className="primary" onClick={() => setPage("workout")}>开始训练</button></section>
     <section className="panel advice-card"><p className="estimate-title">FitLoop 建议</p><p className="advice">{daily?.advice || error || "正在生成基于你真实记录的建议…"}</p><p className="why">查看为什么这样建议 →</p></section>
+    <AgentChat />
   </>;
 }
 
