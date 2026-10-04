@@ -32,10 +32,15 @@ class FitLoopRepository:
             "protein_g": payload.protein_g, "carbs_g": payload.carbs_g,
             "fat_g": payload.fat_g, "confirmed": True,
         }
+        if payload.log_date:
+            record["logged_at"] = f"{payload.log_date.isoformat()}T12:00:00+00:00"
         return self.client.table("food_logs").insert(record).execute().data[0]
 
     def create_workout_log(self, payload: WorkoutLogCreate) -> dict:
-        return self.client.table("workout_logs").insert({"profile_id": str(payload.profile_id), "workout_name": payload.workout_name, "duration_min": payload.duration_min, "perceived_effort": payload.perceived_effort, "notes": payload.notes, "completed": True}).execute().data[0]
+        record = {"profile_id": str(payload.profile_id), "workout_name": payload.workout_name, "duration_min": payload.duration_min, "perceived_effort": payload.perceived_effort, "notes": payload.notes, "completed": True}
+        if payload.log_date:
+            record["logged_at"] = f"{payload.log_date.isoformat()}T12:00:00+00:00"
+        return self.client.table("workout_logs").insert(record).execute().data[0]
 
     def get_weekly_logs(self, profile_id: UUID | str, week_start: date) -> tuple[list[dict], list[dict]]:
         start = f"{week_start.isoformat()}T00:00:00+00:00"
