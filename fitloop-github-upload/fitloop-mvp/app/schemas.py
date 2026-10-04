@@ -12,6 +12,7 @@ class FoodLogCreate(BaseModel):
     protein_g: float = Field(ge=0, le=500)
     carbs_g: float = Field(ge=0, le=1000)
     fat_g: float = Field(ge=0, le=500)
+    log_date: date | None = None
 
 
 class DailyAdviceRequest(BaseModel):
@@ -25,6 +26,7 @@ class WorkoutLogCreate(BaseModel):
     duration_min: int = Field(ge=1, le=300)
     perceived_effort: str = Field(pattern="^(轻松|刚好|很累)$")
     notes: str | None = Field(default=None, max_length=500)
+    log_date: date | None = None
 
 
 class WeeklyReviewDraftRequest(BaseModel):
@@ -47,3 +49,10 @@ class FoodEstimate(BaseModel):
     carbs_g: float = Field(description="Estimated carbohydrate grams for the whole meal")
     fat_g: float = Field(description="Estimated fat grams for the whole meal")
     assumptions: list[str] = Field(description="Short Chinese assumptions used for the estimate")
+
+
+class AgentRequest(BaseModel):
+    """A natural-language message that the tool-calling fitness agent handles."""
+
+    profile_id: UUID
+    message: str = Field(min_length=1, max_length=1000)
