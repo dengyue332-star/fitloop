@@ -32,6 +32,7 @@ textarea:focus { border-color: #336b57; box-shadow: 0 0 0 3px rgba(51, 107, 87, 
 .primary { min-height: 48px; border: 0; border-radius: 14px; background: #336b57; color: #fff; font-size: 15px; font-weight: 650; cursor: pointer; transition: transform .15s ease, background .15s ease; }
 .primary:hover { background: #285846; }.primary:active { transform: translateY(1px) scale(.99); }.primary:disabled { cursor: default; background: #9bb6a7; }
 .message { margin: -8px 0 0; font-size: 12px; line-height: 17px; }.message.error { color: #ad3025; }.message.success { color: #336b57; }
+.agent-chat { gap: 10px; }.agent-chat textarea { height: 86px; }.agent-answer { margin: 0; white-space: pre-wrap; color: #141a1a; font-size: 13px; line-height: 19px; }
 nav { margin-top: auto; min-height: 54px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; border-radius: 16px; background: #fff; padding: 8px; color: #63706b; }
 nav button { border: 0; background: transparent; color: inherit; display: grid; justify-items: center; gap: 2px; font-size: 13px; line-height: 18px; cursor: pointer; } nav small { font-size: 11px; line-height: 15px; } nav .active { color: #336b57; font-weight: 650; }
 @media (min-width: 600px) { body { padding: 28px; }.phone-shell { min-height: calc(100dvh - 56px); box-shadow: 0 20px 60px rgba(32, 56, 40, .12); } }
