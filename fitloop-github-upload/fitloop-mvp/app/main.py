@@ -4,10 +4,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from .agent import build_daily_advice_graph, estimate_food
+from .agent import build_daily_advice_graph, estimate_food, run_fitness_agent
 from .config import get_settings
 from .repository import FitLoopRepository
-from .schemas import DailyAdviceRequest, FoodLogCreate, WorkoutLogCreate, WeeklyReviewConfirm, WeeklyReviewDraftRequest
+from .schemas import AgentRequest, DailyAdviceRequest, FoodLogCreate, WorkoutLogCreate, WeeklyReviewConfirm, WeeklyReviewDraftRequest
 
 app = FastAPI(title="FitLoop MVP API", version="0.1.0")
 allowed_origins = ["http://127.0.0.1:5173", "http://localhost:5173"]
@@ -100,3 +100,13 @@ def daily_advice(payload: DailyAdviceRequest) -> dict:
         "workouts": result["workouts"],
         "advice": result["advice"],
     }
+
+
+@app.post("/agent/run")
+def run_agent(payload: AgentRequest) -> dict:
+    """Entry point for the tool-calling fitness-recording agent."""
+    try:
+        answer = run_fitness_agent(get_settings(), repository(), str(payload.profile_id), payload.message)
+        return {"answer": answer}
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
